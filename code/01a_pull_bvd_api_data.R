@@ -67,4 +67,4 @@ download_pfiles("2024-12", "descriptives", "trade_description.parquet", "data/or
 # Download 2019-08 version files into data/orbis_data/
 # -----------------------------------------------------------------------------
 download_pfiles("2019-08", "financials_global", "industry_global_financials_and_ratios_usd.parquet", "data/orbis_data/2019-08/industry_global_financials_and_ratios_usd.parquet")
-
+download_pfiles("2019-08", "financials_global", "banks_global_financials_and_ratios_usd.parquet", "data/orbis_data/2019-08/banks_global_financials_and_ratios_usd.parquet")

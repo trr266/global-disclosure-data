@@ -36,7 +36,7 @@ load_dot_env(file = "global-disclosure-data.env")
 WRDS_USER_NAME =  Sys.getenv("WRDS_USER_NAME")
 WRDS_PASSWORD = Sys.getenv("WRDS_PASSWORD")
 
-PARQUET_FOLDER <- "data/orbis/2024-12"
+PARQUET_FOLDER <- "data/orbis_data/2024-12"
 
 
 ##############################
