@@ -104,8 +104,8 @@ con <- connect_duckdb()
 
 
 # File paths
-ORBIS_2024 <- "data/orbis/2024-12/industry_global_financials_and_ratios_usd.parquet"
-ORBIS_2019 <- "data/orbis/2019-08/industry_global_financials_and_ratios_usd.parquet"
+ORBIS_2024 <- "data/orbis_data/2024-12/industry_global_financials_and_ratios_usd.parquet"
+ORBIS_2019 <- "data/orbis_data/2019-08/industry_global_financials_and_ratios_usd.parquet"
 
 
 # Create a combined view with all three datasets
