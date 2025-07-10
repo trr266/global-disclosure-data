@@ -1,0 +1,12 @@
+# R Stuff
+.Rproj.user
+*.Rproj
+.Rhistory
+.quarto
+/.vscode
+
+
+
+global-disclosure-data.env
+global-disclosure-data.log
+global-disclosure-data.txt
