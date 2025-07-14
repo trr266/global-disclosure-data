@@ -200,7 +200,6 @@ dt_ctry_year <- bind_rows(lapply(output_list, `[[`, "dt_ctry_year"))
 ####################################
 dir.create("data/aggregated_data", showWarnings = FALSE, recursive = TRUE)
 write.csv(dt_ctry, "data/aggregated_data/dt_ctry.csv", row.names = FALSE)
-write.csv(dt_ctry_type, "data/aggregated_data/dt_ctry_type.csv", row.names = FALSE)
 write.csv(dt_ctry_year, "data/aggregated_data/dt_ctry_year.csv", row.names = FALSE)
 
 

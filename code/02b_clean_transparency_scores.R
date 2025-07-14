@@ -86,7 +86,7 @@ dbExecute(con, glue("
 # Export to parquet
 dbExecute(con, "
   COPY transparency_scores_clean
-  TO 'data/generated/transparency_scores/transparency_scores.parquet' 
+  TO 'data/transparency_scores/transparency_scores.parquet' 
   (FORMAT 'parquet');
 ")
 

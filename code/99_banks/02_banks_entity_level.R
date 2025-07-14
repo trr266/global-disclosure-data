@@ -1,15 +1,3 @@
-###############################################################
-# Build entity-level panel data (2015–2021) from Orbis files.
-# 
-# - Filters firms by legal form, status, and activity.
-# - Merges transparency scores, listing info, and market data.
-# - Outputs one parquet file per country.
-#
-# Set RUN_PARALLEL=TRUE to enable parallel processing.
-#
-# Data inputs: Orbis legal info, transparency scores, LSEG data.
-# Output path: data/entity_level_data/
-###############################################################
 
 ##############################
 # Load packages
@@ -33,9 +21,6 @@ suppressMessages({
 source("code/config.R")
 
 run_parallel <- toupper(Sys.getenv("RUN_PARALLEL")) == "TRUE"
-
-
-
 
 pdata <- function(pfile) {
   file.path(PARQUET_FOLDER, pfile) 
@@ -76,9 +61,8 @@ query_str <- sprintf(
     "  SUBSTR(\"BvD ID number\", 1, 2) AS country_code, ",
     "  COUNT(*) AS n_obs ",
     "FROM '%s' ",
-    "WHERE \"Type of entity\" IN ('Corporate') ",
+    "WHERE \"Type of entity\" IN ('Bank') ",
     "  AND SUBSTR(\"BvD ID number\", 1, 2) IN (%s) ",
-    "  AND \"Standardised legal form\" IN ('Private limited companies', 'Public limited companies', 'Partnerships', 'Sole traders/proprietorships') ",
     "  AND (",
     "    \"Date of incorporation\" IS NULL OR ",
     "    CAST(LEFT(CAST(\"Date of incorporation\" AS VARCHAR), 4) AS INTEGER) <= 2021",
@@ -117,11 +101,12 @@ ctries <- sample_size$country_code
 
 
 ##############################
-# Define function: Filters the data and builds entity-level panel data
+# Define function: Filters the data and build bank-level panel data
 ##############################
 
-get_entity_level_data <- function(ctry){
-  log_info("Start: Entity level data {ctry}")
+get_bank_data <- function(ctry){
+  
+  log_info("Start processing {ctry}")
   
   # Set horizon for analysis 
   analysis_years <- 2015:2021
@@ -146,11 +131,7 @@ get_entity_level_data <- function(ctry){
     "Status",
     "Status date", 
     "Date of incorporation",
-    "Type of entity",
-    "Listed/Delisted/Unlisted",
-    "Main exchange",
-    "IPO date",
-    "Delisted date"
+    "Type of entity"
   )
   
   con <- connect_duckdb(":memory:")
@@ -167,15 +148,10 @@ get_entity_level_data <- function(ctry){
       type_of_entity = `Type of entity`,
       status = Status,
       incorp_date = `Date of incorporation`,
-      status_date = `Status date`,
-      listing_status = `Listed/Delisted/Unlisted`,
-      main_exchange = `Main exchange`,
-      ipo_date = `IPO date`,
-      delist_date = `Delisted date`
+      status_date = `Status date`
     ) %>%
     filter(
-      type_of_entity %in% c("Corporate"),
-      legal_form %in% c("Private limited companies", "Public limited companies", "Partnerships", "Sole traders/proprietorships"),
+      type_of_entity %in% c("Bank"),
       !(status %in% inactive_statuses &
           (is.na(status_date) | as.integer(substr(as.character(status_date), 1, 4)) < !!min_year)),
       (
@@ -226,138 +202,94 @@ get_entity_level_data <- function(ctry){
   
   
   ##############################
-  # Get transparency scores
+  # Get financials
   ##############################
   
   con <- connect_duckdb()
   
-  SCORES <- "data/transparency_scores/transparency_scores.parquet"
+  # Load cleaned financial data
+  FINANCIALS <- "data/banking_data/banks_financials/banks_financials.parquet"
   dbExecute(con, glue("
-  CREATE VIEW transparency_scores AS 
-  SELECT * FROM read_parquet('{SCORES}')
+  CREATE VIEW banks_financials AS 
+  SELECT * FROM read_parquet('{FINANCIALS}')
 "))
   
-  transparency_scores <- tbl(con, "transparency_scores") %>%
-    select(bvd_id, year, nr_month, bs_total, is_total, notes_total, total_assets, orbis_version) %>%
-    filter(bvd_id %like% paste0(ctry, "%")) %>%
-    mutate(
-      bs_total = coalesce(bs_total, 0),
-      is_total = coalesce(is_total, 0),
-      notes_total = coalesce(notes_total, 0),
-      fs_total = bs_total + is_total + notes_total,
-      year = as.numeric(year)
-    ) %>%
+  
+  banks_financials <- tbl(con, "banks_financials") %>%
+    filter(sql(glue("bvd_id LIKE '{ctry}%'"))) %>% 
+    mutate(year = as.numeric(year)) %>%
     collect()
+  
   
   dbDisconnect(con, shutdown = TRUE)
   
+  # Merge 
+  dt <- left_join(dt, banks_financials , by = c("bvd_id", "year"))
   
-  dt <- left_join(dt, transparency_scores, by = c("bvd_id", "year"))
-  
-  rm(transparency_scores)
+  # Clean up
+  rm(banks_financials)
   gc()
   
   
   
   
-  
   ##############################
-  # Get Listing Status
+  # Get specialization
   ##############################
+
+  con <- connect_duckdb()
   
-  # Prep listing data
-  listing_info <- legal_info %>%
-    filter(listing_status %in% c("Listed")) %>% 
-    mutate(
-      ipo_year   = as.integer(substr(ipo_date, 1, 4)),
-      start_year = ifelse(is.na(ipo_year), 
-                          min(analysis_years), # Assumption: If the IPO date is missing, assume they are listed over the full horizon
-                          ipo_year+1 ) # Make sure that they have been listed for at least one business year
+  # Load trade description parquet file into DuckDB
+  SCORES <- "data/orbis_data/2024-12/trade_description.parquet"
+  dbExecute(con, glue("
+  CREATE VIEW trade_description AS 
+  SELECT * FROM read_parquet('{SCORES}')
+"))
+  
+
+  trade_description <- tbl(con, "trade_description") %>%
+    select(
+      `BvD ID number`,
+      `Specialisation (banks only)`
     ) %>%
-    select(bvd_id, listing_status, main_exchange, ipo_year, start_year) %>%
-    filter(!start_year > max(analysis_years)) # Delete those that have a IPO after the analysis horizon
+    rename(
+      bvd_id = `BvD ID number`,
+      specialisation = `Specialisation (banks only)`
+    ) %>%
+    filter(sql(glue("bvd_id LIKE '{ctry}%'"))) %>% 
+    collect()
+  
+
+  dbDisconnect(con, shutdown = TRUE)
+  
+  # Merge 
+  dt <- left_join(dt, trade_description, by = "bvd_id")
+  
+  # Clean up
+  rm(trade_description)
+  gc()
   
   
-  
-  
-  
-  if (nrow(listing_info) > 0) {
-    
-    # Make a panel from the beginning of the analysis horizon (or the IPO date) to the end of the analysis horizon
-    listing_info <- listing_info %>%
-      rowwise() %>%
-      mutate(years_listed = list(max(start_year, min(analysis_years)):max(analysis_years))) %>%  
-      unnest(years_listed) %>%
-      ungroup() %>%
-      rename(year = years_listed) %>%
-      select(-start_year)
-    
-    dt <- left_join(dt, listing_info, by = c("bvd_id", "year"))
-    
-    dt$listed <- dt$listing_status %in% "Listed"
-    
-    rm(listing_info)
-    gc()
-    
-  } else {
-    dt$listed <- FALSE
-    dt$main_exchange <- NA
-    dt$ipo_year <- NA
-  }
-  
-  
-  ##############################
-  # Get trading volume and total assets data
-  ##############################
-  
-  if (file.exists(paste0("data/lseg_data/",ctry,"_lseg_data.rds"))) {
-    
-    lseg_data <- readRDS(paste0("data/lseg_data/",ctry,"_lseg_data.rds"))
-    
-    lseg_data <- lseg_data %>%
-      select(bvd_id, year, lseg_volume, lseg_toas, isin)
-    
-    dt <- left_join(dt, lseg_data, by = c("bvd_id", "year"))
-    
-    rm(lseg_data)
-    gc()
-    
-  } else {
-    dt$lseg_volume <- NA
-    dt$lseg_toas <- NA
-    dt$isin <- NA
-  }
-  
-  ##############################
-  # Clean
-  ##############################
-  
-  dt <- dt %>%
-    select(bvd_id, year, legal_form, listed, main_exchange, ipo_year, nr_month, fs_total, bs_total, is_total, notes_total, total_assets, orbis_version, lseg_volume, lseg_toas, isin)
-  
+
   
   ########################################
   # Save result
   ########################################
-  dir.create("data/entity_level_data", showWarnings = FALSE, recursive = TRUE)
-  write_parquet(dt, paste0("data/entity_level_data/", ctry,"_entity_level_data.parquet"))
-  log_info("End: Entity level data {ctry}")
+  dir.create("data/banking_data/banks_entity_level_data/", showWarnings = FALSE, recursive = TRUE)
+  write_parquet(dt, paste0("data/banking_data/banks_entity_level_data/", ctry,"_banks.parquet"))
   
-  
+  log_info("End processing {ctry}")
   
 }
-
 
 ########################################
 # Run function
 ########################################
 
 #Check if some countries are already done
-done <- list.files(path = "data/entity_level_data")
+done <- list.files(path = "data/banking_data/banks_entity_level_data")
 done <- substr(done, 1, 2)
 ctries <- ctries[!ctries %in% done]
-
-
 
 
 # Take care of Namibia
@@ -388,14 +320,15 @@ if (run_parallel) {
   )
   
   # Use parLapply to run the function in parallel across the country data
-  parLapply(cl, ctries, get_entity_level_data)
+  parLapply(cl, ctries, get_bank_data)
   
   
 }else{
   
   # Run each country separately 
   for(ctry in ctries){
-    get_entity_level_data(ctry)
+    get_bank_data(ctry)
   }
   
 }
+

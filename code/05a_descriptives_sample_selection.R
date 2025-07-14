@@ -288,7 +288,8 @@ disconnect_duckdb(con)
 
 # Sanity check
 sum(filter_4$n_obs) - sum(filter_3$n_obs) + sum(excluded_legal_forms$n_obs) == 0
-
+dt_ctry <- read.csv("data/aggregated_data/dt_ctry.csv")
+sum(filter_4$n_obs) == sum(dt_ctry$firms)
 
 ##############################
 # Make a table
