@@ -1,0 +1,198 @@
+exchange_name,exchange_country,otc,wfe_member
+Bourse Rigionale des Valeurs Mobilihres,"BJ,BF,CI,ML,NE,SN,TG",0,1
+Bolsa de Valores y Productos de Asuncisn,PY,0,0
+"""Other OTC Market, USA""",US,1,0
+4 Africa Exchange,ZA,0,0
+Abu Dhabi Securities Market,AE,0,1
+Aequitas Neo Exchange,CA,0,1
+Algiers Stock Exchange,DZ,0,0
+Amman Stock Exchange,JO,0,1
+Aquis Stock Exchange,GB,0,0
+Armenia Securities Exchange,AM,0,0
+Athens Stock Exchange,GR,0,1
+Australian Securities Exchange,AU,0,1
+Bahamas International Securities Exchange,BS,0,0
+Bahrain Stock Exchange,BH,0,1
+Baku Stock Exchange,AZ,0,0
+Bangalore Stock Exchange,IN,0,0
+Banja Luka Stock Exchange,BA,0,0
+Barbados Stock Exchange,BB,0,0
+Beirut Stock Exchange,LB,0,0
+Belgrade Stock Exchange,RS,0,0
+Bermuda Stock Exchange,BM,0,1
+Bern Stock Exchange,CH,0,0
+BM&F Bovespa,BR,0,1
+Boerse Berlin,DE,0,0
+Boerse Duesseldorf,DE,0,0
+Boerse Frankfurt,DE,0,1
+Boerse Hamburg,DE,0,0
+Boerse Munchen,DE,0,0
+Boerse Stuttgart,DE,0,1
+Bolsa Boliviana de Valores,BO,0,0
+Bolsa Centroamericana De Valores De Honduras,HN,0,0
+Bolsa de Barcelona,ES,0,0
+Bolsa de Comercio de Buenos Aires,AR,0,1
+Bolsa de Madrid,ES,0,0
+Bolsa de Valencia,ES,0,0
+Bolsa de Valores de Bilbao,ES,0,0
+Bolsa de Valores de Caracas,VE,0,0
+Bolsa de Valores de Colombia,CO,0,0
+Bolsa de Valores de Lima,PE,0,0
+Bolsa de Valores de Montevideo,UY,0,0
+Bolsa de Valores de Panama,PA,0,0
+Bolsa de Valores Nacional,GT,0,0
+Bolsa Mexicana de Valores,MX,0,1
+Bolsa Nacional de Valores,CR,0,0
+Bombay Stock Exchange,IN,0,0
+Borsa Italiana - MTA (Mercato Telematico Azionario),IT,0,0
+Botswana Stock Exchange,BW,0,1
+Bourse de Tunis,TN,0,1
+Bratislava Stock Exchange,SK,0,0
+Bucharest Stock Exchange,RO,0,0
+Budapest Stock Exchange,HU,0,0
+Bulgarian Stock Exchange,BG,0,0
+Bursa Malaysia,MY,0,1
+Calcutta Stock Exchange,IN,0,0
+Cambodia Securities Exchange,KH,0,0
+Canadian Securities Exchange,CA,0,1
+Cape Verde Stock Exchange,CV,0,0
+Casablanca Stock Exchange,MA,0,1
+CBOE BYX U.S. Equities Exchange,US,0,1
+Chittagong Stock Exchange,BD,0,1
+Colombo Stock Exchange,LK,0,1
+Cyprus Stock Exchange,CY,1,1
+Cyprus Stock Exchange - OTC,CY,1,0
+Damascus Securities Exchange,SY,0,0
+Dar Es Salaam Stock Exchange,TZ,0,1
+Delhi Stock Exchange,IN,0,0
+Dhaka Stock Exchange,BD,0,1
+Douala Stock Exchange,CM,0,0
+Dubai Financial Market,AE,0,1
+Dutch Caribbean Securities Exchange,CW,0,0
+Eastern Caribbean Securities Exchange,"AI,AG,DM,GD,KN,LC,MS,VC",0,0
+Egyptian Exchange,EG,0,1
+El Salvador Stock Exchange,SV,0,0
+Eswatini Stock Exchange,SZ,0,0
+Euronext Amsterdam,NL,0,1
+Euronext Brussels,BE,0,1
+Euronext Dublin,IE,0,1
+Euronext Lisbon,PT,0,1
+Euronext Paris,FR,0,1
+Fukuoka Stock Exchange,JP,0,0
+Georgia Stock Exchange,GE,0,0
+Ghana Stock Exchange,GH,0,1
+Guayaquil Stock Exchange,EC,0,0
+Guyana Stock Exchange,GY,0,0
+Hanoi Securities Trading Center,VN,0,0
+Hanoi Stock Exchange (Unlisted Public Company Trading Platform - UPCOM),VN,0,0
+HoChiMinh Stock Exchange,VN,0,0
+Hong Kong Stock Exchange,HK,0,1
+Indonesia Stock Exchange,ID,0,1
+Iraq Stock Exchange,IQ,0,0
+Istanbul Stock Exchange,TR,0,1
+Jamaica Stock Exchange,JM,0,0
+Johannesburg Stock Exchange,ZA,0,1
+Kazakhstan Stock Exchange,KZ,0,1
+Khartoum Stock Exchange,SD,0,0
+Kiev International Stock Exchange,UA,0,0
+Korea New Exchange (KONEX),KR,0,1
+Korea Stock Exchange,KR,0,1
+KOSDAQ,KR,0,1
+Kuwait Stock Exchange,KW,0,1
+Kyrgyz Stock Exchange,KG,0,0
+La Bolsa Electronica de Chile,CL,0,0
+Lao Securities Exchange,LA,0,0
+Libyan Stock Market,LY,0,0
+Ljubljana Stock Exchange,SI,0,0
+London Stock Exchange,GB,0,0
+London Stock Exchange (SEAQ),GB,0,0
+Lusaka Stock Exchange,ZM,0,0
+Luxembourg Stock Exchange,LU,0,1
+Macedonian Stock Exchange,MK,0,0
+Madras Stock Exchange,IN,0,0
+Malawi Stock Exchange,MW,0,0
+Malta Stock Exchange,MT,0,1
+Mauritius Stock Exchange,MU,0,1
+Mercado Alternativo Bursatil,ES,0,0
+Metropolitan Stock Exchange of India,IN,0,0
+Minsk Stock Exchange,BY,0,0
+Moldova Stock Exchange,MD,0,0
+Mongolian Stock Exchange,MN,0,0
+Montenegro Stock Exchange,ME,0,0
+Moscow Exchange MICEX - RTS,RU,0,0
+Moscow Interbank Currency Exchange - MICEX,RU,0,0
+Mozambique Stock Exchange,MZ,0,0
+Muscat Securities Market,OM,0,1
+Nagoya Stock Exchange,JP,0,0
+Nairobi Stock Exchange,KE,0,1
+Namibian Stock Exchange,NA,0,1
+Nasdaq Baltic,"EE,LV,LT",0,1
+NASDAQ Capital Market,US,0,1
+Nasdaq Dubai,AE,0,1
+NASDAQ National Market,US,0,1
+Nasdaq OMX - Copenhagen,DK,0,1
+Nasdaq OMX - Helsinki,FI,0,1
+Nasdaq OMX - Iceland,IS,0,1
+Nasdaq OMX - Riga,LV,0,1
+Nasdaq OMX - Stockholm,SE,0,1
+Nasdaq OMX - Tallinn,EE,0,1
+Nasdaq OMX - Vilnius,LT,0,1
+NASDAQ/NGS (Global Select Market),US,0,1
+NASDAQ/NMS (Global Market),US,0,1
+National Stock Exchange of Australia,AU,0,0
+National Stock Exchange of India,IN,0,1
+Nepal Stock Exchange,NP,0,0
+New York Stock Exchange (NYSE),US,0,1
+New Zealand Stock Exchange,NZ,0,1
+NewConnect,PL,0,0
+NEX,GB,0,0
+Nigerian Stock Exchange,NG,0,1
+Nordic Growth Market (NGM),SE,0,0
+Norvegian OTC,NO,1,0
+NYSE ARCA,US,0,1
+NYSE MKT,US,0,1
+Oslo Axess Stock Exchange,NO,0,0
+Oslo Bors,NO,0,0
+OTC Bulletin Board,US,1,0
+OTC Pink Market,US,1,0
+Pakistan Stock Exchange,PK,0,0
+Perspectiva Stock Exchange,RU,0,0
+PFTS Stock Exchange,UA,0,0
+Philippine Stock Exchange,PH,0,1
+Pink Sheets Grey Market,US,1,0
+Port Moresby Stock Exchange,PG,0,0
+Prague Stock Exchange,CZ,0,0
+Qatar Exchange,QA,0,1
+Quito Stock Exchange,EC,0,0
+Republican Stock Exchange,UZ,0,0
+Russian Trading System,RU,0,0
+Rwanda Stock Exchange,RW,0,0
+Santiago Stock Exchange,CL,0,0
+Sapporo Stock Exchange,JP,0,0
+Sarajevo Stock Exchange,BA,0,0
+Saudi Stock Exchange,SA,0,1
+Shanghai Stock Exchange,CN,0,1
+Shenzhen Stock Exchange,CN,0,1
+Singapore Exchange,SG,0,1
+South Pacific Stock Exchange,FJ,0,0
+Spotlight Stock Market,SE,0,0
+Stock Exchange of Thailand,TH,0,1
+Swiss Exchange (SWX),CH,0,1
+Sydney Stock Exchange,AU,0,0
+Taiwan Stock Exchange,TW,0,1
+Tehran Stock Exchange,IR,0,0
+Tel Aviv Stock Exchange,IL,0,1
+The International Stock Exchange,GG,0,0
+Tokyo PRO Market,JP,0,1
+Tokyo Stock Exchange,JP,0,1
+Toronto Stock Exchange,CA,0,1
+Trinidad & Tobago Stock Exchange,TT,0,0
+TSX Venture Exchange,CA,0,1
+Uganda Securities Exchange,UG,0,0
+Ukrainian Exchange,UA,0,0
+Warsaw Stock Exchange,PL,0,1
+Wiener Boerse,AT,0,0
+XETRA Stock Exchange,DE,0,1
+Zagreb Stock Exchange,HR,0,0
+ZAR X,ZA,0,0
+Zimbabwe Stock Exchange,ZW,0,0

@@ -61,6 +61,7 @@ download_pfiles("2024-12", "financials_global", "industry_global_financials_and_
 download_pfiles("2024-12", "financials_global", "banks_global_financials_and_ratios_usd.parquet", "data/orbis_data/2024-12/banks_global_financials_and_ratios_usd.parquet")
 download_pfiles("2024-12", "descriptives", "legal_info.parquet", "data/orbis_data/2024-12/legal_info.parquet")
 download_pfiles("2024-12", "descriptives", "identifiers.parquet", "data/orbis_data/2024-12/identifiers.parquet")
+download_pfiles("2024-12", "descriptives", "contact_info.parquet", "data/orbis_data/2024-12/contact_info.parquet")
 download_pfiles("2024-12", "descriptives", "trade_description.parquet", "data/orbis_data/2024-12/trade_description.parquet")
 
 # -----------------------------------------------------------------------------
