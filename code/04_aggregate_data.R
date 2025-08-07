@@ -146,6 +146,9 @@ get_ctry_level_data <- function(country){
       is_items = mean(ifelse(is_total > 0, is_total, NA), na.rm = TRUE),
       notes_items = mean(ifelse(notes_total > 0, notes_total, NA), na.rm = TRUE),
       
+      # Aggregate total assets
+      aggregated_total_assets = sum(total_assets, na.rm = TRUE),
+      
       .groups = "drop"
     ) %>%
     collect()
