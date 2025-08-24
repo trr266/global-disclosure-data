@@ -65,6 +65,10 @@ get_version <- function(country){
 files <- list.files(path = "data/entity_level_data")
 countries <- substr(files, 1, 2)
 
+# Exclude countries that are not part of the sample
+excluded_ctries <- c("CD", "ME", "RS", "SS", "ER", "VE", "GD", "FJ")
+countries <- countries[!countries %in% excluded_ctries]
+
 # Run for all countries
 dt <- lapply(countries, get_version)
 dt <- bind_rows(dt)

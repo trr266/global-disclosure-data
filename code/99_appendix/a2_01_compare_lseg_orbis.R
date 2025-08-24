@@ -70,6 +70,10 @@ dt_ctry_year <- read.csv("data/aggregated_data/dt_ctry_year.csv")
 listed <- dt_ctry_year %>% filter(legal_form %in% c("Listed", "Other Listed"))
 ctries <- unique(listed$ctry)
 
+# Exclude countries that are not part of the sample
+excluded_ctries <- c("CD", "ME", "RS", "SS", "ER", "VE")
+ctries  <- ctries [!ctries  %in% excluded_ctries]
+
 
 
 # Set up and run function for countries with wfe member stock exchanges

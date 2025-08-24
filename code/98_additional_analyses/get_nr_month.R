@@ -69,7 +69,7 @@ get_nr_month <- function(country){
 # Get all files 
 files <- list.files(path = "data/entity_level_data")
 countries <- substr(files, 1, 2)
-
+countries <- countries[!countries %in% c("CD", "ME", "RS", "SS", "ER", "VE")]
 
 
 # Run for all countries
@@ -84,3 +84,6 @@ dt <- df_nr_month %>%
     n_not_12 = sum(n_obs[nr_month != 12]),
     share = n_not_12 / (n_12 + n_not_12)
   )
+
+
+sum(dt$n_12)/sum(dt$n_12+dt$n_not_12 )

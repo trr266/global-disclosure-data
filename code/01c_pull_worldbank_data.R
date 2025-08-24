@@ -19,6 +19,7 @@ dload_wbank_data <- function(
              "CM.MKT.LDOM.NO",
              "CM.MKT.LCAP.GD.ZS",
              "BX.KLT.DINV.WD.GD.ZS",
+             "FS.AST.PRVT.GD.ZS",
              
              # Governance Indicators
              "VA.EST",
@@ -42,6 +43,7 @@ dload_wbank_data <- function(
                "listed_domestic_comps",
                "mkt_cap_gdp",
                "foreign_invest_gdp",
+               "dom_cred",
                
                # Governance Indicators
                "voice_account_est",
@@ -80,6 +82,7 @@ colnames(worldbank_data) <- c("ctry",
                               "listed_domestic_comps",
                               "mkt_cap_gdp",
                               "foreign_invest_gdp",
+                              "dom_cred",
                               
                               # Governance Indicators
                               "voice_account_est",
