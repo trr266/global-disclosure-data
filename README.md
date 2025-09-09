@@ -43,7 +43,7 @@ The analysis relies on the following R packages:
 
 To replicate the results, follow the scripts in the `code/` folder in chronological order:
 
-1. **`01_pull_bvd_api_data.py`**  
+1. **`01_pull_bvd_api_data.R`**  
    Downloads the required Orbis data from the TRR 266 API.
 
 2. **`01b_pull_worldbank_data.R`**  
