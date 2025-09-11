@@ -1,5 +1,5 @@
 ###############################################################
-# Build entity-level panel data (2015–2021) from Orbis files.
+# Build entity-level panel data (2015-2021) from Orbis files.
 # 
 # - Filters firms by legal form, status, and activity.
 # - Merges transparency scores, listing info, and market data.
@@ -23,7 +23,6 @@ suppressMessages({
   library(rlog)
   library(parallel)
   library(glue)
-  library(arrow)
 })
 
 ##############################
@@ -238,7 +237,7 @@ get_entity_level_data <- function(ctry){
 "))
   
   transparency_scores <- tbl(con, "transparency_scores") %>%
-    select(bvd_id, year, nr_month, bs_total, is_total, notes_total, total_assets, orbis_version) %>%
+    select(bvd_id, year, nr_month, bs_total, is_total, notes_total, orbis_version) %>%
     filter(bvd_id %like% paste0(ctry, "%")) %>%
     mutate(
       bs_total = coalesce(bs_total, 0),
@@ -307,40 +306,24 @@ get_entity_level_data <- function(ctry){
   
   
   ##############################
-  # Get trading volume and total assets data
-  ##############################
-  
-  if (file.exists(paste0("data/lseg_data/",ctry,"_lseg_data.rds"))) {
-    
-    lseg_data <- readRDS(paste0("data/lseg_data/",ctry,"_lseg_data.rds"))
-    
-    lseg_data <- lseg_data %>%
-      select(bvd_id, year, lseg_volume, lseg_toas, isin)
-    
-    dt <- left_join(dt, lseg_data, by = c("bvd_id", "year"))
-    
-    rm(lseg_data)
-    gc()
-    
-  } else {
-    dt$lseg_volume <- NA
-    dt$lseg_toas <- NA
-    dt$isin <- NA
-  }
-  
-  ##############################
   # Clean
   ##############################
   
   dt <- dt %>%
-    select(bvd_id, year, legal_form, listed, main_exchange, ipo_year, nr_month, fs_total, bs_total, is_total, notes_total, total_assets, orbis_version, lseg_volume, lseg_toas, isin)
+    select(bvd_id, year, legal_form, listed, main_exchange, ipo_year, nr_month, fs_total, bs_total, is_total, notes_total, orbis_version)
   
   
   ########################################
   # Save result
   ########################################
   dir.create("data/entity_level_data", showWarnings = FALSE, recursive = TRUE)
-  write_parquet(dt, paste0("data/entity_level_data/", ctry,"_entity_level_data.parquet"))
+  
+  con <- DBI::dbConnect(duckdb::duckdb(), ":memory:")
+  DBI::dbWriteTable(con, "to_write", dt, temporary = TRUE)
+  DBI::dbExecute(con, glue::glue("
+  COPY to_write TO 'data/entity_level_data/{ctry}_entity_level_data.parquet' (FORMAT PARQUET)"))
+  DBI::dbDisconnect(con, shutdown = TRUE)
+  
   log_info("End: Entity level data {ctry}")
   
   
@@ -378,7 +361,6 @@ if (run_parallel) {
     library(rlog)
     library(parallel)
     library(glue)
-    library(arrow)
     source("code/config.R")
   })
   
