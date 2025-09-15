@@ -237,7 +237,7 @@ get_entity_level_data <- function(ctry){
 "))
   
   transparency_scores <- tbl(con, "transparency_scores") %>%
-    select(bvd_id, year, nr_month, bs_total, is_total, notes_total, orbis_version) %>%
+    select(bvd_id, year, nr_month, bs_total, is_total, notes_total, total_assets, orbis_version) %>%
     filter(bvd_id %like% paste0(ctry, "%")) %>%
     mutate(
       bs_total = coalesce(bs_total, 0),
@@ -310,7 +310,7 @@ get_entity_level_data <- function(ctry){
   ##############################
   
   dt <- dt %>%
-    select(bvd_id, year, legal_form, listed, main_exchange, ipo_year, nr_month, fs_total, bs_total, is_total, notes_total, orbis_version)
+    select(bvd_id, year, legal_form, listed, main_exchange, ipo_year, nr_month, fs_total, bs_total, is_total, notes_total, total_assets, orbis_version)
   
   
   ########################################
